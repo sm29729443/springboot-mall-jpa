@@ -1,5 +1,7 @@
 package com.example.springbootmalljpa.entity;
 
+import com.example.springbootmalljpa.constants.ProductCategory;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -20,7 +22,9 @@ public class ProductEntity {
     private String productName;
     @Basic
     @Column(name = "category")
-    private String category;
+    // JPA 若是使用 enum name 須加上 @Enumerated
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
     @Basic
     @Column(name = "image_url")
     private String imageUrl;
@@ -56,11 +60,11 @@ public class ProductEntity {
         this.productName = productName;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 
