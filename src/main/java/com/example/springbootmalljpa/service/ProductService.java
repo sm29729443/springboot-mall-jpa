@@ -13,5 +13,5 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
     public ProductEntity getProductById(Integer productId);
 
-    public Integer createProduct(ProductRequest productRequest);
+    public ProductEntity createProduct(ProductRequest productRequest);
 }

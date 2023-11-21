@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer createProduct(ProductRequest productRequest) {
+    public ProductEntity createProduct(ProductRequest productRequest) {
         ProductEntity productEntity = new ProductEntity();
         productEntity.setProductName(productRequest.getProductName());
         productEntity.setCategory(productRequest.getCategory());
@@ -37,6 +37,6 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setLastModifiedDate(now);
 
         ProductEntity product = productDao.save(productEntity);
-        return product.getProductId();
+        return product;
     }
 }
