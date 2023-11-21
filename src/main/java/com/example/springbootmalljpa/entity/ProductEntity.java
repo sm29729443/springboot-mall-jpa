@@ -1,6 +1,7 @@
 package com.example.springbootmalljpa.entity;
 
 import com.example.springbootmalljpa.constants.ProductCategory;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Data
 @Table(name = "product", schema = "mall")
 public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
