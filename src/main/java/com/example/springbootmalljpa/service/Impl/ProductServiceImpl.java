@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * ClassName: ProductServiceImpl
@@ -19,14 +17,9 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
-
     @Override
-    public ProductEntity getProductById(Integer productId) throws NoSuchElementException {
-        Optional<ProductEntity> product = productDao.findById(productId);
-        if (!product.isPresent()) {
-            throw new NoSuchElementException(" productId not found ");
-        }
-            return product.get();
+    public ProductEntity getProductById(Integer productId) {
+        return productDao.getProductById(productId);
     }
 
     @Override
@@ -45,20 +38,5 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity product = productDao.save(productEntity);
         return product;
-    }
-
-    @Override
-    public void updateProduct(Integer productId, ProductRequest productRequest) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setProductId(productId);
-        productEntity.setProductName(productRequest.getProductName());
-        productEntity.setCategory(productRequest.getCategory());
-        productEntity.setImageUrl(productRequest.getImageUrl());
-        productEntity.setPrice(productRequest.getPrice());
-        productEntity.setStock(productRequest.getStock());
-        productEntity.setDescription(productRequest.getDescription());
-        productEntity.setCreatedDate(productDao.getCreatedDateById(productId));
-        productEntity.setLastModifiedDate(new Date());
-        productDao.save(productEntity);
     }
 }
