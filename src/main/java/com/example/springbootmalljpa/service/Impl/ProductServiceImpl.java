@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -62,6 +63,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(Integer productId) {
         productDao.deleteById(productId);
+    }
+
+    @Override
+    public List<ProductEntity> getProducts() {
+        return productDao.findAll();
     }
 
 

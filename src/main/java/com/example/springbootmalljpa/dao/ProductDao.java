@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * ClassName: ProductDao
@@ -38,7 +39,4 @@ public interface ProductDao extends JpaRepository<ProductEntity, Integer> {
                               @Param("stock") Integer stock,
                               @Param("description") String description,
                               @Param("last_modified_date") Date lastModifiedDate);
-
-
-
 }
