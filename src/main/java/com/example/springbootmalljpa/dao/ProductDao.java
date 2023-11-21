@@ -38,4 +38,7 @@ public interface ProductDao extends JpaRepository<ProductEntity, Integer> {
                               @Param("stock") Integer stock,
                               @Param("description") String description,
                               @Param("last_modified_date") Date lastModifiedDate);
+
+
+
 }

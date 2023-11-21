@@ -18,4 +18,6 @@ public interface ProductService {
     public ProductEntity createProduct(ProductRequest productRequest);
 
     public void updateProduct(Integer productId, ProductRequest productRequest);
+
+    public void deleteProductById(Integer productId);
 }

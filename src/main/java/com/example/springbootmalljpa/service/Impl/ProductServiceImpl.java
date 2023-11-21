@@ -58,4 +58,11 @@ public class ProductServiceImpl implements ProductService {
                 productRequest.getDescription(),
                 new Date());
     }
+
+    @Override
+    public void deleteProductById(Integer productId) {
+        productDao.deleteById(productId);
+    }
+
+
 }
