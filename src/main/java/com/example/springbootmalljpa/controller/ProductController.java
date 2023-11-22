@@ -3,6 +3,7 @@ package com.example.springbootmalljpa.controller;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
  * Package: com.example.springbootmalljpa.controller
  */
 @RestController
+@Slf4j
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -43,8 +45,7 @@ public class ProductController {
         ProductEntity product = productService.getProductById(productId);
 
 
-        productService.updateProduct(productId, productRequest);
-        ProductEntity updateProduct = productService.getProductById(productId);
+        ProductEntity updateProduct = productService.updateProduct(productId, productRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
     }
 

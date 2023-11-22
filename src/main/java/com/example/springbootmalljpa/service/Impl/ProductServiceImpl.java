@@ -49,15 +49,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(Integer productId, ProductRequest productRequest) {
-        productDao.updataProduct(productId,
-                productRequest.getProductName(),
-                productRequest.getCategory().toString(),
-                productRequest.getImageUrl(),
-                productRequest.getPrice(),
-                productRequest.getStock(),
-                productRequest.getDescription(),
-                new Date());
+    public ProductEntity updateProduct(Integer productId, ProductRequest productRequest) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductId(productId);
+        productEntity.setProductName(productRequest.getProductName());
+        productEntity.setCategory(productRequest.getCategory());
+        productEntity.setImageUrl(productRequest.getImageUrl());
+        productEntity.setPrice(productRequest.getPrice());
+        productEntity.setStock(productRequest.getStock());
+        productEntity.setDescription(productRequest.getDescription());
+        productEntity.setCreatedDate(productDao.getCreatedDateById(productId));
+        productEntity.setLastModifiedDate(new Date());
+        return productDao.save(productEntity);
     }
 
     @Override
