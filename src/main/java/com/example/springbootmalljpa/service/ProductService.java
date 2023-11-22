@@ -1,5 +1,6 @@
 package com.example.springbootmalljpa.service;
 
+import com.example.springbootmalljpa.constants.ProductCategory;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import org.springframework.data.repository.query.Param;
@@ -22,5 +23,5 @@ public interface ProductService {
 
     public void deleteProductById(Integer productId);
 
-    public List<ProductEntity> getProducts();
+    public List<ProductEntity> getProducts(ProductCategory productCategory, String search);
 }

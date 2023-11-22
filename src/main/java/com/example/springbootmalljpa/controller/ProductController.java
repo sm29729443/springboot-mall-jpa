@@ -1,5 +1,6 @@
 package com.example.springbootmalljpa.controller;
 
+import com.example.springbootmalljpa.constants.ProductCategory;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
@@ -58,8 +59,11 @@ public class ProductController {
 
     //查詢商品列表
     @GetMapping("/products")
-    public ResponseEntity<List<ProductEntity>> getProducts() {
-        List<ProductEntity> products = productService.getProducts();
+    public ResponseEntity<List<ProductEntity>> getProducts(
+            @RequestParam(required = false) ProductCategory productCategory,
+            @RequestParam(required = false) String search
+            ) {
+        List<ProductEntity> products = productService.getProducts(productCategory, search);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 

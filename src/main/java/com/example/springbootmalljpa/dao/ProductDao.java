@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * ClassName: ProductDao
@@ -22,5 +23,9 @@ public interface ProductDao extends JpaRepository<ProductEntity, Integer> {
 
     @Query(value = "SELECT created_date FROM product WHERE product_id = :product_id", nativeQuery = true)
     public Date getCreatedDateById(@Param("product_id") Integer productId);
+
+    public List<ProductEntity> findByProductNameLike(String search);
+    public List<ProductEntity> findByCategory(ProductCategory category);
+    public List<ProductEntity> findByCategoryAndProductNameLike(ProductCategory category, String search);
 
 }
