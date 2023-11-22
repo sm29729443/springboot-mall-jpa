@@ -2,6 +2,7 @@ package com.example.springbootmalljpa.service.Impl;
 
 import com.example.springbootmalljpa.constants.ProductCategory;
 import com.example.springbootmalljpa.dao.ProductDao;
+import com.example.springbootmalljpa.dto.ProductQueryParams;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
@@ -70,7 +71,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> getProducts(ProductCategory productCategory, String search) {
+    public List<ProductEntity> getProducts(ProductQueryParams params) {
+        ProductCategory productCategory = params.getProductCategory();
+        String search = params.getSearch();
         StringBuffer searchLike = new StringBuffer("%" + search + "%");
         if (productCategory == null && search == null) {
             return productDao.findAll();

@@ -1,6 +1,7 @@
 package com.example.springbootmalljpa.controller;
 
 import com.example.springbootmalljpa.constants.ProductCategory;
+import com.example.springbootmalljpa.dto.ProductQueryParams;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
@@ -63,7 +64,10 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory productCategory,
             @RequestParam(required = false) String search
             ) {
-        List<ProductEntity> products = productService.getProducts(productCategory, search);
+        ProductQueryParams params = new ProductQueryParams();
+        params.setProductCategory(productCategory);
+        params.setSearch(search);
+        List<ProductEntity> products = productService.getProducts(params);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
