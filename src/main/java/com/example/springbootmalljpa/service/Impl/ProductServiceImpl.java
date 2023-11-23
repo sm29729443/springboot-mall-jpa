@@ -7,6 +7,8 @@ import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -77,18 +79,24 @@ public class ProductServiceImpl implements ProductService {
         String search = params.getSearch();
         String orderBy = params.getOrderBy();
         String sort = params.getSort();
+
+        Integer page = params.getPage();
+        Integer size = params.getSize();
+
         StringBuffer searchLike = new StringBuffer("%" + search + "%");
         Sort jpaSort = Sort.by(Sort.Direction.valueOf(sort), orderBy);
+        //分頁用
+        PageRequest pageResult = PageRequest.of(page, size, jpaSort);
         if (productCategory == null && search == null) {
-            return productDao.findAll(jpaSort);
+            return  productDao.findAll(PageRequest.of(page, size, jpaSort)).getContent();
         }
         if (productCategory == null) {
-            return productDao.findByProductNameLike(searchLike.toString(), jpaSort);
+            return productDao.findByProductNameLike(searchLike.toString(), pageResult).getContent();
         }
         if (search == null) {
-            return productDao.findByCategory(productCategory, jpaSort);
+            return productDao.findByCategory(productCategory, pageResult).getContent();
         }
-        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString(), jpaSort);
+        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString(), pageResult).getContent();
     }
 
 

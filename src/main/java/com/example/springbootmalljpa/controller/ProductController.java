@@ -7,19 +7,21 @@ import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
-/**
- * ClassName: ProductController
- * Package: com.example.springbootmalljpa.controller
- */
+
 @RestController
 @Slf4j
+@Validated
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -67,13 +69,19 @@ public class ProductController {
 
             // 排序條件 orderBy
             @RequestParam(defaultValue = "createdDate") String orderBy,
-            @RequestParam(defaultValue = "ASC") String sort
+            @RequestParam(defaultValue = "ASC") String sort,
+
+            // 分頁 Pagination
+            @RequestParam(defaultValue = "0") @Max(1000) @Min(0) Integer page,
+            @RequestParam(defaultValue = "5") @Min(1) Integer size
             ) {
         ProductQueryParams params = new ProductQueryParams();
         params.setProductCategory(productCategory);
         params.setSearch(search);
         params.setOrderBy(orderBy);
         params.setSort(sort);
+        params.setPage(page);
+        params.setSize(size);
         List<ProductEntity> products = productService.getProducts(params);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }

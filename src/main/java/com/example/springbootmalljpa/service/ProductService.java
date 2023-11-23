@@ -4,6 +4,7 @@ import com.example.springbootmalljpa.constants.ProductCategory;
 import com.example.springbootmalljpa.dto.ProductQueryParams;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
