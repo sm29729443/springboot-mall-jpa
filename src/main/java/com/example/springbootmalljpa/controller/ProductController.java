@@ -61,12 +61,19 @@ public class ProductController {
     //查詢商品列表
     @GetMapping("/products")
     public ResponseEntity<List<ProductEntity>> getProducts(
+            // 查詢條件 Filtering
             @RequestParam(required = false) ProductCategory productCategory,
-            @RequestParam(required = false) String search
+            @RequestParam(required = false) String search,
+
+            // 排序條件 orderBy
+            @RequestParam(defaultValue = "createdDate") String orderBy,
+            @RequestParam(defaultValue = "ASC") String sort
             ) {
         ProductQueryParams params = new ProductQueryParams();
         params.setProductCategory(productCategory);
         params.setSearch(search);
+        params.setOrderBy(orderBy);
+        params.setSort(sort);
         List<ProductEntity> products = productService.getProducts(params);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }

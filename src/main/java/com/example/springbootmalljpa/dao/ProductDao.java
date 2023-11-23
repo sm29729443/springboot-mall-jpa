@@ -2,6 +2,7 @@ package com.example.springbootmalljpa.dao;
 
 import com.example.springbootmalljpa.constants.ProductCategory;
 import com.example.springbootmalljpa.entity.ProductEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,8 +25,8 @@ public interface ProductDao extends JpaRepository<ProductEntity, Integer> {
     @Query(value = "SELECT created_date FROM product WHERE product_id = :product_id", nativeQuery = true)
     public Date getCreatedDateById(@Param("product_id") Integer productId);
 
-    public List<ProductEntity> findByProductNameLike(String search);
-    public List<ProductEntity> findByCategory(ProductCategory category);
-    public List<ProductEntity> findByCategoryAndProductNameLike(ProductCategory category, String search);
+    public List<ProductEntity> findByProductNameLike(String search, Sort sort);
+    public List<ProductEntity> findByCategory(ProductCategory category, Sort sort);
+    public List<ProductEntity> findByCategoryAndProductNameLike(ProductCategory category, String search, Sort sort);
 
 }

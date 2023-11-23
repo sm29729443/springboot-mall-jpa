@@ -10,4 +10,6 @@ import lombok.Setter;
 public class ProductQueryParams {
     private ProductCategory productCategory;
     private String search;
+    private String orderBy;
+    private String sort;
 }

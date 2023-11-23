@@ -7,6 +7,7 @@ import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import com.example.springbootmalljpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -74,17 +75,20 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductEntity> getProducts(ProductQueryParams params) {
         ProductCategory productCategory = params.getProductCategory();
         String search = params.getSearch();
+        String orderBy = params.getOrderBy();
+        String sort = params.getSort();
         StringBuffer searchLike = new StringBuffer("%" + search + "%");
+        Sort jpaSort = Sort.by(Sort.Direction.valueOf(sort), orderBy);
         if (productCategory == null && search == null) {
-            return productDao.findAll();
+            return productDao.findAll(jpaSort);
         }
         if (productCategory == null) {
-            return productDao.findByProductNameLike(searchLike.toString());
+            return productDao.findByProductNameLike(searchLike.toString(), jpaSort);
         }
         if (search == null) {
-            return productDao.findByCategory(productCategory);
+            return productDao.findByCategory(productCategory, jpaSort);
         }
-        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString());
+        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString(), jpaSort);
     }
 
 
