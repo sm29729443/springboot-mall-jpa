@@ -65,17 +65,24 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<Page<ProductEntity>> getProducts(
             // 查詢條件 Filtering
+            // 商品種類查詢
             @RequestParam(required = false) ProductCategory productCategory,
+            // 商品名稱模糊查詢
             @RequestParam(required = false) String search,
 
             // 排序條件 orderBy
+            // 根據什麼排序
             @RequestParam(defaultValue = "createdDate") String orderBy,
+            // 要降序還是升序
             @RequestParam(defaultValue = "ASC") String sort,
 
             // 分頁 Pagination
+            // offset，決定資料從第幾筆開始
             @RequestParam(defaultValue = "0") @Max(1000) @Min(0) Integer page,
+            // 每頁資料數
             @RequestParam(defaultValue = "5") @Min(1) Integer size
-            ) {
+    ) {
+
         ProductQueryParams params = new ProductQueryParams();
         params.setProductCategory(productCategory);
         params.setSearch(search);
