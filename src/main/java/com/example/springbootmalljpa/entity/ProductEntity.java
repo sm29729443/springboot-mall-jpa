@@ -2,23 +2,19 @@ package com.example.springbootmalljpa.entity;
 
 import com.example.springbootmalljpa.constants.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * ClassName: ProductEntity
- * Package: com.example.springbootmalljpa.entity
- */
 @Getter
 @Setter
 @Entity
-@Table(name = "product", schema = "mall")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "product")
 public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

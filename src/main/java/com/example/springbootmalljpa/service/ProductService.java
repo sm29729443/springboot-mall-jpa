@@ -5,6 +5,7 @@ import com.example.springbootmalljpa.dto.ProductQueryParams;
 import com.example.springbootmalljpa.dto.ProductRequest;
 import com.example.springbootmalljpa.entity.ProductEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,5 @@ public interface ProductService {
 
     public void deleteProductById(Integer productId);
 
-    public List<ProductEntity> getProducts(ProductQueryParams params);
+    public Page<ProductEntity> getProducts(ProductQueryParams params);
 }

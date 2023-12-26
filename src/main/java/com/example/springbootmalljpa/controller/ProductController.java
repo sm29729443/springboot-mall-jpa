@@ -22,6 +22,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @Validated
+@CrossOrigin
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -62,7 +63,7 @@ public class ProductController {
 
     //查詢商品列表
     @GetMapping("/products")
-    public ResponseEntity<List<ProductEntity>> getProducts(
+    public ResponseEntity<Page<ProductEntity>> getProducts(
             // 查詢條件 Filtering
             @RequestParam(required = false) ProductCategory productCategory,
             @RequestParam(required = false) String search,
@@ -82,7 +83,7 @@ public class ProductController {
         params.setSort(sort);
         params.setPage(page);
         params.setSize(size);
-        List<ProductEntity> products = productService.getProducts(params);
+        Page<ProductEntity> products = productService.getProducts(params);
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 

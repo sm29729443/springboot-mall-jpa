@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> getProducts(ProductQueryParams params) {
+    public Page<ProductEntity> getProducts(ProductQueryParams params) {
         ProductCategory productCategory = params.getProductCategory();
         String search = params.getSearch();
         String orderBy = params.getOrderBy();
@@ -88,15 +88,15 @@ public class ProductServiceImpl implements ProductService {
         //分頁用
         PageRequest pageResult = PageRequest.of(page, size, jpaSort);
         if (productCategory == null && search == null) {
-            return  productDao.findAll(PageRequest.of(page, size, jpaSort)).getContent();
+            return  productDao.findAll(pageResult);
         }
         if (productCategory == null) {
-            return productDao.findByProductNameLike(searchLike.toString(), pageResult).getContent();
+            return productDao.findByProductNameLike(searchLike.toString(), pageResult);
         }
         if (search == null) {
-            return productDao.findByCategory(productCategory, pageResult).getContent();
+            return productDao.findByCategory(productCategory, pageResult);
         }
-        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString(), pageResult).getContent();
+        return productDao.findByCategoryAndProductNameLike(productCategory, searchLike.toString(), pageResult);
     }
 
 
